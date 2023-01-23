@@ -73,7 +73,7 @@ namespace WebApiLibros.Controllers
             {
                 return BadRequest();
             }
-            context.Entry(libro).State = EntityState.Modified;
+            context.Entry(libro).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
 
             return NoContent();
