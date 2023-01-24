@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 //Agregar
 using Microsoft.EntityFrameworkCore;
 using WebApiLibros.Data;
+using Newtonsoft.Json;
 
 namespace WebApiLibros
 {
@@ -30,6 +31,10 @@ namespace WebApiLibros
         {
             //Agregamos a nuestro Entity para usar inyección de dependencia en los api-controller
             services.AddDbContext<DBLibrosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KeyDBLibros")));
+
+            services.AddMvc().AddNewtonsoftJson(
+                     o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddControllers();
         }
 

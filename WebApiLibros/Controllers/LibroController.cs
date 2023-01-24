@@ -25,18 +25,23 @@ namespace WebApiLibros.Controllers
         [HttpGet] //TRAER TODOS LOS LIBROS GET api/libro
         public ActionResult<IEnumerable<Libro>> Get()
         {
-            return context.Libros.ToList();
+            //return context.Libros.ToList();
+            var result = context.Libros.Include(x => x.Autor).ToList();
+            return result;
         }
 
 
         [HttpGet("{id}")]   //Get: api/libro/id
         public ActionResult<Libro> GetById(int id)
         {
-            Libro libro = (from a in context.Libros
-                           where a.Id == id
-                           select a).SingleOrDefault();
-            return libro;
+        //    Libro libro = (from a in context.Libros
+        //                   where a.Id == id
+        //                   select a).SingleOrDefault();
+        //    return libro;
+             var resultado = context.Libros.Include(x => x.Autor).FirstOrDefault(x => x.Id == id);
+            return resultado;
         }
+
 
 
         [HttpGet("autor/{id}")]   //Get: api/libro/autorId

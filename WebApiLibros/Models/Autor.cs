@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebApiLibros.Validations;
+using System;
 
 namespace WebApiLibros.Models
 {
@@ -10,7 +12,8 @@ namespace WebApiLibros.Models
     {
         [Key]
         public int IdAutor { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El Nombre es campo obligatorio")]
+        [PrimeraLetraMayusculaAtributte]
         [Column(TypeName = "varchar(50)")]
 
 
@@ -21,6 +24,11 @@ namespace WebApiLibros.Models
 
         [Range(18, 110, ErrorMessage ="Solo se acepta edades entre 18 y 110 años.")]
         public int? Edad { get; set; }
+
+
+        [Required]
+        [FechaMayorAtributte]
+        public DateTime FechaDeNacimiento { get; set; }
 
         public List <Libro> Libros { get; set; }
     }

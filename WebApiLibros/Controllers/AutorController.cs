@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApiLibros.Data; //AGREGAR
 using WebApiLibros.Models;
 
@@ -35,7 +36,9 @@ namespace WebApiLibros.Controllers
 
         public ActionResult<IEnumerable<Autor>> Get()
         {
-            return context.Autores.ToList();
+            //return context.Autores.ToList();
+            var result = context.Autores.Include(x => x.Libros).ToList();
+            return result;
         }
 
 
